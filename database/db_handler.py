@@ -5,12 +5,15 @@ import sqlite3
 
 class DBHandler:
     def __init__(self, db_name):
+        # Connect to the database
         self.conn = sqlite3.connect(db_name)
+        # Create a cursor to execute SQL statements
         self.cursor = self.conn.cursor()
+        # Setup the database
         self.setup_db()
 
     def setup_db(self):
-        """Create the ingredients table if it doesn't exist."""
+        # Create the ingredients table if it doesn't exist
         self.cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS ingredients (
@@ -21,17 +24,18 @@ class DBHandler:
         )
 
     def add_ingredient(self, name, expiry_date):
-        """Add an ingredient to the database."""
+        # Add an ingredient to the database
         self.cursor.execute(
             """
             INSERT INTO ingredients VALUES (?, ?);
         """,
             (name, expiry_date),
         )
+        # Commit the changes
         self.conn.commit()
 
     def get_ingredients(self):
-        """Get all ingredients from the database."""
+        # Get all ingredients from the database
         self.cursor.execute(
             """
             SELECT * FROM ingredients;
@@ -40,5 +44,5 @@ class DBHandler:
         return self.cursor.fetchall()
 
     def close(self):
-        """Close the database connection."""
+        # Close the database connection
         self.conn.close()
