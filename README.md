@@ -22,5 +22,4 @@ Food Waste Reducer is a Python application that helps reduce food waste by sugge
 Run the application: `python main.py`
 
 ## License
-Cybector 
 This project is licensed under the terms of the MIT license.
