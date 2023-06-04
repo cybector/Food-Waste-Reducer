@@ -1,48 +1,38 @@
-# database/db_handler.py
-
 import sqlite3
 
 
 class DBHandler:
     def __init__(self, db_name):
-        # Connect to the database
         self.conn = sqlite3.connect(db_name)
-        # Create a cursor to execute SQL statements
         self.cursor = self.conn.cursor()
-        # Setup the database
         self.setup_db()
 
     def setup_db(self):
-        # Create the ingredients table if it doesn't exist
         self.cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS ingredients (
-                name TEXT,
-                expiry_date TEXT
+            name TEXT,
+            expiry_date TEXT
             );
-        """
+            """
         )
 
     def add_ingredient(self, name, expiry_date):
-        # Add an ingredient to the database
         self.cursor.execute(
             """
             INSERT INTO ingredients VALUES (?, ?);
-        """,
-            (name, expiry_date),
+            """,
+            (name, expiry_date),  # Inserting provided ingredient into the database
         )
-        # Commit the changes
         self.conn.commit()
 
     def get_ingredients(self):
-        # Get all ingredients from the database
         self.cursor.execute(
             """
             SELECT * FROM ingredients;
-        """
+            """
         )
-        return self.cursor.fetchall()
+        return self.cursor.fetchall()  # Fetching all ingredients from the database
 
     def close(self):
-        # Close the database connection
-        self.conn.close()
+        self.conn.close()  # Closing the database connection
