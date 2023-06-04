@@ -12,5 +12,5 @@ __pycache__/
 # Ignore SQLite database file
 *.db
 
-# Ignore the environment file
+# Ignore the environment
 .env
